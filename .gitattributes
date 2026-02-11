@@ -1,0 +1,2 @@
+# Wymuszenie LF dla wszystkich plików tekstowych (Elixir, JS, HTML)
+* text=auto eol=lf
