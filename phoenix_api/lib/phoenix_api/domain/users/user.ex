@@ -16,6 +16,6 @@ defmodule PhoenixApi.Domain.Users.User do
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:first_name, :last_name, :birthdate, :gender])
-    |> validate_required(:gender)
+    |> validate_required([:first_name, :last_name, :birthdate, :gender])
   end
 end

@@ -11,8 +11,6 @@ defmodule PhoenixApi.Repo.Migrations.CreateUsers do
       timestamps()
     end
 
-    create constraint(:users, :gender_must_be_valid,
-             check: "gender in ('male', 'female')"
-           )
+    create constraint(:users, :gender_must_be_valid, check: "gender in ('male', 'female')")
   end
 end
