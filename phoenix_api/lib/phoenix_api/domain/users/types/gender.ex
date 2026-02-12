@@ -25,4 +25,6 @@ defmodule PhoenixApi.Domain.Users.Types.Gender do
   def cast(_), do: :error
 
   def values, do: @values
+
+  def equal?(a, b), do: a == b
 end
