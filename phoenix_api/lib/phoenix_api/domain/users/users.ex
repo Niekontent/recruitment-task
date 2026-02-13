@@ -23,4 +23,25 @@ defmodule PhoenixApi.Domain.Users do
   def delete_user(user) do
     Repo.delete(user)
   end
+
+  def random_user(male_first_names, female_first_names, male_last_names, female_last_names) do
+    gender = if :rand.uniform() > 0.5, do: :male, else: :female
+
+    first_name =
+      if gender == :male, do: Enum.random(male_first_names), else: Enum.random(female_first_names)
+
+    last_name = Enum.random(male_last_names ++ female_last_names)
+    birthdate = random_date(~D[1970-01-01], ~D[2024-12-31])
+
+    %User{
+      first_name: first_name,
+      last_name: last_name,
+      gender: gender,
+      birthdate: birthdate
+    }
+  end
+
+  defp random_date(start, finish) do
+    Date.add(start, :rand.uniform(Date.diff(finish, start)))
+  end
 end

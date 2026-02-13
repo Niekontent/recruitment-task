@@ -52,7 +52,8 @@ defmodule PhoenixApi.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.2.0"},
       {:bandit, "~> 1.5"},
-      {:ex_machina, "~> 2.7"}
+      {:ex_machina, "~> 2.7"},
+      {:mox, "~> 1.2", only: :test}
     ]
   end
 

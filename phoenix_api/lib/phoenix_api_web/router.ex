@@ -10,4 +10,6 @@ defmodule PhoenixApiWeb.Router do
 
     resources "/users", UserController, except: [:new, :edit]
   end
+
+  post "/import", PhoenixApiWeb.ImportController, :import
 end
