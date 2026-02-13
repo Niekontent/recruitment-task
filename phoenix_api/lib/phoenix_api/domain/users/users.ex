@@ -8,6 +8,13 @@ defmodule PhoenixApi.Domain.Users do
 
   def get_user!(id), do: Repo.get!(User, id)
 
+  def get_user(id) do
+    case Repo.get(User, id) do
+      nil -> :error
+      user -> {:ok, user}
+    end
+  end
+
   def create_user(attrs) do
     %User{}
     |> User.changeset(attrs)
