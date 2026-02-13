@@ -27,4 +27,6 @@ defmodule PhoenixApi.Domain.Users.Types.Gender do
   def values, do: @values
 
   def equal?(a, b), do: a == b
+
+  def embed_as(_format), do: :self
 end
