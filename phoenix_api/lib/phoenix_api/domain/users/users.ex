@@ -30,7 +30,9 @@ defmodule PhoenixApi.Domain.Users do
     first_name =
       if gender == :male, do: Enum.random(male_first_names), else: Enum.random(female_first_names)
 
-    last_name = Enum.random(male_last_names ++ female_last_names)
+    last_name =
+      if gender == :male, do: Enum.random(male_last_names), else: Enum.random(female_last_names)
+
     birthdate = random_date(~D[1970-01-01], ~D[2024-12-31])
 
     %User{
