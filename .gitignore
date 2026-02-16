@@ -1,2 +1,37 @@
-**/_build
-**/deps
+####################################
+# SYSTEM
+####################################
+.DS_Store
+Thumbs.db
+
+####################################
+# IDE
+####################################
+.idea/
+.vscode/
+
+####################################
+# ELIXIR / PHOENIX
+####################################
+/phoenix_api/_build/
+/phoenix_api/deps/
+/phoenix_api/cover/
+/phoenix_api/.elixir_ls/
+
+# env secrets
+/phoenix_api/.env
+/phoenix_api/.env.*
+
+####################################
+# SYMFONY / PHP
+####################################
+/symfony_app/vendor/
+/symfony_app/var/cache/
+/symfony_app/var/log/
+/symfony_app/.env.local
+/symfony_app/.env.*.local
+
+####################################
+# DOCKER
+####################################
+*.log
