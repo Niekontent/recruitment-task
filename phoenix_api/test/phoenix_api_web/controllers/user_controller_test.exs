@@ -1,14 +1,16 @@
 defmodule PhoenixApiWeb.UserControllerTest do
   use PhoenixApiWeb.ConnCase, async: true
 
+  import PhoenixApi.Factory
+
   alias PhoenixApi.Domain.Users
   alias PhoenixApi.Domain.Users.User
 
   @valid_attrs %{
-    "first_name" => "Jan",
-    "last_name" => "Kowalski",
-    "birthdate" => "1990-01-01",
-    "gender" => "male"
+    "first_name" => "Wanda",
+    "last_name" => "Maximoff",
+    "birthdate" => "1989-02-10",
+    "gender" => "female"
   }
 
   @invalid_attrs %{
@@ -17,7 +19,7 @@ defmodule PhoenixApiWeb.UserControllerTest do
 
   describe "index/2" do
     test "returns list of users", %{conn: conn} do
-      {:ok, _} = Users.create_user(@valid_attrs)
+      _user = insert(:user)
 
       conn = get(conn, "/api/users")
 
@@ -27,7 +29,7 @@ defmodule PhoenixApiWeb.UserControllerTest do
 
   describe "show/2" do
     test "returns single user", %{conn: conn} do
-      {:ok, user} = Users.create_user(@valid_attrs)
+      user = insert(:user)
 
       conn = get(conn, "/api/users/#{user.id}")
 
@@ -45,7 +47,7 @@ defmodule PhoenixApiWeb.UserControllerTest do
     test "creates user with valid data", %{conn: conn} do
       conn = post(conn, "/api/users", @valid_attrs)
 
-      assert json_response(conn, 200)["first_name"] == "Jan"
+      assert json_response(conn, 200)["first_name"] == "Wanda"
     end
 
     test "returns error with invalid data", %{conn: conn} do
@@ -58,28 +60,26 @@ defmodule PhoenixApiWeb.UserControllerTest do
 
   describe "update/2" do
     test "updates user", %{conn: conn} do
-      {:ok, user} = Users.create_user(@valid_attrs)
+      user = insert(:user)
 
       conn =
         put(conn, "/api/users/#{user.id}", %{
-          "first_name" => "Adam"
+          "first_name" => "Elizabeth"
         })
 
-      assert json_response(conn, 200)["first_name"] == "Adam"
+      assert json_response(conn, 200)["first_name"] == "Elizabeth"
     end
   end
 
   describe "delete/2" do
     test "deletes user", %{conn: conn} do
-      {:ok, user} = Users.create_user(@valid_attrs)
+      user = insert(:user)
 
       conn = delete(conn, "/api/users/#{user.id}")
 
       assert response(conn, 204)
 
-      assert_raise Ecto.NoResultsError, fn ->
-        Users.get_user!(user.id)
-      end
+      assert :error == Users.get_user(user.id)
     end
   end
 end

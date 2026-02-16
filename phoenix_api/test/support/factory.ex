@@ -7,7 +7,7 @@ defmodule PhoenixApi.Factory do
     %User{
       first_name: "Wanda",
       last_name: "Maximoff",
-      birthdate: ~D[1990-02-10],
+      birthdate: ~D[1989-02-10],
       gender: :female
     }
   end
