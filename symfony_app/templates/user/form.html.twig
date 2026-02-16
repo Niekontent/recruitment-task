@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ action }} User{% endblock %}
+
+{% block body %}
+<h1>{{ action }} User</h1>
+
+<form action="{{ action == 'Create' ? path('user_create') : path('user_update', {'id': user.id}) }}" method="post">
+    <label>First Name</label>
+    <input type="text" name="first_name" value="{{ user.first_name|default('') }}" required>
+
+    <label>Last Name</label>
+    <input type="text" name="last_name" value="{{ user.last_name|default('') }}" required>
+
+    <label>Gender</label>
+    <select name="gender" required>
+        <option value="male" {% if user.gender|default('') == 'male' %}selected{% endif %}>Male</option>
+        <option value="female" {% if user.gender|default('') == 'female' %}selected{% endif %}>Female</option>
+    </select>
+
+    <label>Birthdate</label>
+    <input type="date" name="birthdate" value="{{ user.birthdate|default('') }}" required>
+
+    <button type="submit">{{ action }}</button>
+</form>
+
+<a href="{{ path('user_index') }}">Back to list</a>
+{% endblock %}

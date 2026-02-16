@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Users{% endblock %}
+
+{% block body %}
+<h1>Users</h1>
+
+<a href="{{ path('user_new') }}">Create new user</a>
+
+<form method="get">
+    <input type="text" name="first_name" placeholder="First name" value="{{ filters.first_name }}">
+    <input type="text" name="last_name" placeholder="Last name" value="{{ filters.last_name }}">
+    <select name="gender">
+        <option value="">All genders</option>
+        <option value="male" {% if filters.gender == 'male' %}selected{% endif %}>Male</option>
+        <option value="female" {% if filters.gender == 'female' %}selected{% endif %}>Female</option>
+    </select>
+    <input type="date" name="birthdate_from" value="{{ filters.birthdate_from }}">
+    <input type="date" name="birthdate_to" value="{{ filters.birthdate_to }}">
+    <button type="submit">Filter</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th><a href="?sort_by=first_name">First Name</a></th>
+            <th><a href="?sort_by=last_name">Last Name</a></th>
+            <th><a href="?sort_by=gender">Gender</a></th>
+            <th><a href="?sort_by=birthdate">Birthdate</a></th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.gender }}</td>
+                <td>{{ user.birthdate }}</td>
+                <td>
+                    <a href="{{ path('user_edit', {'id': user.id}) }}">Edit</a>
+                    <form action="{{ path('user_delete', {'id': user.id}) }}" method="post" style="display:inline;">
+                        <button type="submit" onclick="return confirm('Delete user?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
