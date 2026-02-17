@@ -1,18 +1,26 @@
-# PhoenixApi
+## Run project
 
-To start your Phoenix server:
+docker compose up --build
 
-* Run `mix setup` to install and setup dependencies
-* Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+Phoenix API: http://localhost:4000
+Symfony Admin: http://localhost:8000
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Users Import
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+To import users to Phoenix API:
 
-## Learn more
+1. Start containers:
+```
+docker-compose up -d
+```
 
-* Official website: https://www.phoenixframework.org/
-* Guides: https://hexdocs.pm/phoenix/overview.html
-* Docs: https://hexdocs.pm/phoenix
-* Forum: https://elixirforum.com/c/phoenix-forum
-* Source: https://github.com/phoenixframework/phoenix
+2. Initiate the import
+```
+curl -X POST http://localhost:4000/import -H "Authorization: VERY_SECRET_TOKEN"
+```
+
+## Data sources
+Imiona męskie https://dane.gov.pl/pl/dataset/1667,lista-imion-wystepujacych-w-rejestrze-pesel-osoby-zyjace/resource/1159669/table?page=1&per_page=20&q=&sort=
+Imiona żeńskie https://dane.gov.pl/pl/dataset/1667,lista-imion-wystepujacych-w-rejestrze-pesel-osoby-zyjace/resource/1159670/table?page=1&per_page=20&q=&sort=
+Nazwiska męskie https://dane.gov.pl/pl/dataset/1681,nazwiska-osob-zyjacych-wystepujace-w-rejestrze-pesel/resource/1148808/table?page=1&per_page=20&q=&sort=
+Nazwiska żeńskie https://dane.gov.pl/pl/dataset/1681,nazwiska-osob-zyjacych-wystepujace-w-rejestrze-pesel/resource/1148811/table?page=1&per_page=20&q=&sort=

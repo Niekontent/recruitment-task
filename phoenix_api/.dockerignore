@@ -1,0 +1,24 @@
+# Build artifacts
+_build
+deps
+node_modules
+assets/node_modules
+*.ez
+*.beam
+
+# Editor & system files
+*.swp
+*.swo
+*.DS_Store
+*.vscode
+.idea
+
+# Logs
+log/*
+tmp/*
+priv/static/*
+*.bak
+
+# Ignore Dockerfile and docker-compose.override
+Dockerfile
+docker-compose.override.yml

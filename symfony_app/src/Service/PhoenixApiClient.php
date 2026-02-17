@@ -16,7 +16,7 @@ class PhoenixApiClient
     public function __construct(HttpClientInterface $client, string $baseUrl, ?string $apiToken = null)
     {
         $this->client = $client;
-        $this->baseUrl = rtrim($baseUrl, '/');
+        $this->baseUrl = $_ENV['PHOENIX_API_URL'] ?? 'http://phoenix:4000';
         $this->apiToken = $apiToken;
     }
 
