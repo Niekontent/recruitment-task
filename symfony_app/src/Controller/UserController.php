@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Service\PhoenixApiClient;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Psr\Log\LoggerInterface;
@@ -20,16 +19,17 @@ class UserController extends AbstractController
     }
     public function index(Request $request): Response
     {
-        // filtrowanie i sortowanie
         $filters = [
-            'first_name' => $request->query->get('first_name'),
-            'last_name'  => $request->query->get('last_name'),
-            'gender'     => $request->query->get('gender'),
-            'birthdate_from' => $request->query->get('birthdate_from'),
-            'birthdate_to'   => $request->query->get('birthdate_to'),
-            'sort_by'    => $request->query->get('sort_by', 'id'),
-            'sort_order' => $request->query->get('sort_order', 'asc')
+            'first_name'      => $request->query->get('first_name', ''),
+            'last_name'       => $request->query->get('last_name', ''),
+            'gender'          => $request->query->get('gender', ''),
+            'birthdate_from'  => $request->query->get('birthdate_from', ''),
+            'birthdate_to'    => $request->query->get('birthdate_to', ''),
+            'sort_by'         => $request->query->get('sort_by', 'id'),
+            'sort_order'      => $request->query->get('sort_order', 'asc'),
         ];
+
+        $filters = array_filter($filters, fn($v) => $v !== null && $v !== '');
 
         $users = $this->api->listUsers($filters);
 
@@ -38,6 +38,7 @@ class UserController extends AbstractController
             'filters' => $filters
         ]);
     }
+
     public function new(): Response
     {
         return $this->render('user/form.html.twig', [

@@ -8,25 +8,26 @@
 <a href="{{ path('user_new') }}">Create new user</a>
 
 <form method="get">
-    <input type="text" name="first_name" placeholder="First name" value="{{ filters.first_name }}">
-    <input type="text" name="last_name" placeholder="Last name" value="{{ filters.last_name }}">
+    <input type="text" name="first_name" placeholder="First name" value="{{ filters.first_name|default('') }}">
+    <input type="text" name="last_name" placeholder="Last name" value="{{ filters.last_name|default('') }}">
     <select name="gender">
         <option value="">All genders</option>
-        <option value="male" {% if filters.gender == 'male' %}selected{% endif %}>Male</option>
-        <option value="female" {% if filters.gender == 'female' %}selected{% endif %}>Female</option>
+        <option value="male" {% if filters.gender|default('') == 'male' %}selected{% endif %}>Male</option>
+        <option value="female" {% if filters.gender|default('') == 'female' %}selected{% endif %}>Female</option>
     </select>
-    <input type="date" name="birthdate_from" value="{{ filters.birthdate_from }}">
-    <input type="date" name="birthdate_to" value="{{ filters.birthdate_to }}">
+    <input type="date" name="birthdate_from" value="{{ filters.birthdate_from|default('') }}">
+    <input type="date" name="birthdate_to" value="{{ filters.birthdate_to|default('') }}">
     <button type="submit">Filter</button>
 </form>
 
 <table>
     <thead>
         <tr>
-            <th><a href="?sort_by=first_name">First Name</a></th>
-            <th><a href="?sort_by=last_name">Last Name</a></th>
-            <th><a href="?sort_by=gender">Gender</a></th>
-            <th><a href="?sort_by=birthdate">Birthdate</a></th>
+            {% set base_query = filters|merge({'sort_by': null}) %}
+            <th><a href="?{{ base_query|merge({'sort_by':'first_name', 'sort_order': filters.sort_order|default('asc')})|url_encode }}">First Name</a></th>
+            <th><a href="?{{ base_query|merge({'sort_by':'last_name', 'sort_order': filters.sort_order|default('asc')})|url_encode }}">Last Name</a></th>
+            <th><a href="?{{ base_query|merge({'sort_by':'gender', 'sort_order': filters.sort_order|default('asc')})|url_encode }}">Gender</a></th>
+            <th><a href="?{{ base_query|merge({'sort_by':'birthdate', 'sort_order': filters.sort_order|default('asc')})|url_encode }}">Birthdate</a></th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -43,6 +44,10 @@
                         <button type="submit" onclick="return confirm('Delete user?')">Delete</button>
                     </form>
                 </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">No users found.</td>
             </tr>
         {% endfor %}
     </tbody>

@@ -42,9 +42,7 @@ class PhoenixApiClient
 
     public function listUsers(array $filters = []): array
     {
-        $query = http_build_query($filters);
-        $url = '/api/users' . ($query ? "?$query" : '');
-        return $this->request('GET', $url);
+        return $this->request('GET', '/api/users', ['query' => $filters]);
     }
 
     public function getUser(int $id): array
