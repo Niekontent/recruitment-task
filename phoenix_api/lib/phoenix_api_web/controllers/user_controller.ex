@@ -3,8 +3,8 @@ defmodule PhoenixApiWeb.UserController do
 
   alias PhoenixApi.Domain.Users
 
-  def index(conn, _params) do
-    users = Users.list_users()
+  def index(conn, params) do
+    users = Users.list_users(params)
     json(conn, Enum.map(users, &user_to_map/1))
   end
 
